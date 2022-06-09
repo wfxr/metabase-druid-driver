@@ -8,3 +8,6 @@
 /.lein-plugins
 /.lein-repl-history
 .eastwood
+.clj-kondo
+.cpcache
+.lsp
