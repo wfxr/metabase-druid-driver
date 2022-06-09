@@ -1,10 +1,10 @@
 info:
-  name: Metabase Druid Driver
+  name: Metabase Druid Driver (Patched)
   version: 1.0.0-SNAPSHOT
   description: Allows Metabase to connect to Druid databases.
 driver:
   name: druid
-  display-name: Druid
+  display-name: Druid (Patched)
   lazy-load: true
   connection-properties:
     - merge:
