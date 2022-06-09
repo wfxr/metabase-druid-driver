@@ -133,18 +133,22 @@
   (str (java.util.UUID/randomUUID)))
 
 (defn- query-type->default-query [query-type]
-  (merge
-   {:intervals   ["1900-01-01/2100-01-01"]
-    :granularity :all
-    :context     {:queryId (random-query-id)}}
-   (case query-type
-     ::scan               {:queryType :scan
-                           :limit     qp.i/absolute-max-results}
-     ::total              {:queryType :timeseries}
-     ::grouped-timeseries {:queryType :timeseries}
-     ::topN               {:queryType :topN
-                           :threshold topN-max-results}
-     ::groupBy            {:queryType :groupBy})))
+  (let [end (.plusDays (java.time.LocalDate/now) 1)
+        start (.plusDays end -7)
+        interval (str start "/" end)]
+    (merge
+      {:intervals   [interval]
+       :granularity :all
+       :context     {:queryId (random-query-id)}}
+      (case query-type
+        ::scan               {:queryType :scan
+                              :limit     qp.i/absolute-max-results}
+        ::total              {:queryType :timeseries}
+        ::grouped-timeseries {:queryType :timeseries}
+        ::topN               {:queryType :topN
+                              :threshold topN-max-results}
+        ::groupBy            {:queryType :groupBy}))))
+
 
 
 ;;; ---------------------------------------------- handle-source-table -----------------------------------------------
